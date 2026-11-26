@@ -7,8 +7,7 @@
   <title>27</title>
   <meta property="og:type" content="website" />
   <meta property="og:title" content="27" />
-  <meta property="og:description" content="живой таймер до 27 ноября" />
-  <meta property="og:image" content="https://mqrkin.github.io/27/assets/og_27.jpg" />
+  <meta property="og:image" content="https://mqrkin.github.io/27/assets/og_27.jpg?v=2" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -427,9 +426,12 @@
     const sirenBtn = document.getElementById('sirenBtn');
     const sirenOverlay = document.getElementById('sirenOverlay');
     let sirenTimer = null;
+    let lastHorny = 5;
     sirenBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      setSticker(Math.random() < 0.5 ? 4 : 5);
+      const nextHorny = curSticker === 4 ? 5 : curSticker === 5 ? 4 : (lastHorny === 4 ? 5 : 4);
+      lastHorny = nextHorny;
+      setSticker(nextHorny);
       sirenOverlay.classList.add('active');
       burst(window.innerWidth / 2, window.innerHeight * 0.28, 18);
       if (navigator.vibrate) navigator.vibrate([25, 45, 25]);
