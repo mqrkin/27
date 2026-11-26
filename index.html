@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
   <meta name="theme-color" content="#09080c" />
-  <title>27 · 11:20 МСК</title>
+  <title>27</title>
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="27 · 11:20 МСК" />
-  <meta property="og:description" content="живой посекундный таймер до 27 ноября — и пара пасхалок внутри" />
+  <meta property="og:title" content="27" />
+  <meta property="og:description" content="живой таймер до 27 ноября" />
   <meta property="og:image" content="https://mqrkin.github.io/27/assets/og_27.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -15,14 +15,14 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #09080c;
       --surface: rgba(255, 255, 255, 0.048);
       --surface-strong: rgba(255, 255, 255, 0.09);
       --ink: #f7f4ef;
-      --ink-dim: rgba(247, 244, 239, 0.56);
+      --ink-dim: rgba(247, 244, 239, 0.52);
       --accent: #f5a623;
       --accent-2: #ff6b8b;
       --glow-a: rgba(245, 166, 35, 0.22);
@@ -54,7 +54,7 @@
       background: var(--bg);
       color: var(--ink);
       font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
       transition: background 0.55s ease;
     }
 
@@ -69,13 +69,13 @@
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(85px);
+      filter: blur(88px);
       transition: background 0.65s ease;
     }
 
     .orb-1 {
-      width: 340px;
-      height: 340px;
+      width: 360px;
+      height: 360px;
       top: -90px;
       left: 50%;
       transform: translateX(-50%);
@@ -125,44 +125,15 @@
       max-width: 440px;
       margin: 0 auto;
       min-height: 100dvh;
-      padding: calc(14px + env(safe-area-inset-top)) 18px calc(24px + env(safe-area-inset-bottom));
+      padding: calc(16px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      justify-content: space-between;
     }
 
     .topbar {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: var(--surface);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: var(--ink-dim);
-    }
-
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
-      animation: dotPulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes dotPulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.45); opacity: 0.55; }
+      justify-content: flex-end;
     }
 
     .switch-btn {
@@ -172,7 +143,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 7px 12px;
+      padding: 8px 13px;
       border-radius: 999px;
       background: var(--surface-strong);
       color: var(--ink);
@@ -195,30 +166,29 @@
       transition: background 0.35s ease, box-shadow 0.35s ease;
     }
 
-    .hero {
+    .center-stack {
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      padding: 4px 0 2px;
+      gap: 24px;
+      width: 100%;
     }
 
     .art-stage {
-      position: relative;
-      width: 196px;
-      height: 196px;
+      width: 224px;
+      height: 224px;
       display: grid;
       place-items: center;
       cursor: pointer;
     }
 
     .art-img {
-      width: 184px;
-      height: 184px;
+      width: 214px;
+      height: 214px;
       object-fit: contain;
-      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.52));
+      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
       animation: floaty 3.8s ease-in-out infinite;
-      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s ease;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .art-stage.pop .art-img {
@@ -227,35 +197,18 @@
 
     @keyframes floaty {
       0%, 100% { transform: translateY(0px) rotate(-1deg); }
-      50% { transform: translateY(-7px) rotate(1.2deg); }
-    }
-
-    .art-hint {
-      margin-top: 2px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      min-height: 18px;
+      50% { transform: translateY(-8px) rotate(1.2deg); }
     }
 
     .timer-card {
+      width: 100%;
       background: var(--surface);
       border-radius: 24px;
-      padding: 20px 16px 18px;
+      padding: 18px 14px 16px;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.07);
       transition: background 0.45s ease;
-    }
-
-    .timer-title {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-dim);
-      margin-bottom: 14px;
     }
 
     .clock-grid {
@@ -268,7 +221,7 @@
     .unit {
       background: rgba(0, 0, 0, 0.34);
       border-radius: 18px;
-      padding: 14px 6px 12px;
+      padding: 15px 6px 13px;
       text-align: center;
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
       transition: box-shadow 0.25s ease, transform 0.18s ease;
@@ -280,7 +233,7 @@
     }
 
     .digits {
-      font-size: 42px;
+      font-size: 44px;
       font-weight: 800;
       line-height: 1;
       letter-spacing: -0.03em;
@@ -309,14 +262,11 @@
       opacity: 0.7;
     }
 
-    .progress-wrap {
-      margin-top: 16px;
-    }
-
     .progress-track {
-      height: 5px;
+      margin-top: 16px;
+      height: 4px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.09);
+      background: rgba(255, 255, 255, 0.08);
       overflow: hidden;
     }
 
@@ -329,114 +279,21 @@
       transition: width 0.35s linear, background 0.4s ease;
     }
 
-    .progress-meta {
-      margin-top: 8px;
+    .bottom-bar {
       display: flex;
-      justify-content: space-between;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--ink-dim);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .termo-card {
-      background: var(--surface);
-      border-radius: 22px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-      touch-action: none;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      transition: transform 0.16s ease, background 0.4s ease;
-    }
-
-    .termo-card:active {
-      transform: scale(0.985);
-    }
-
-    .mug-box {
-      position: relative;
-      width: 84px;
-      height: 84px;
-      flex-shrink: 0;
-    }
-
-    .mug-box img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      pointer-events: none;
-    }
-
-    .mug-hot {
-      clip-path: inset(100% 0 0 0);
-      transition: clip-path 0.08s linear;
-    }
-
-    .termo-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .termo-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .termo-temp {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .termo-sub {
-      margin-top: 4px;
-      font-size: 12px;
-      line-height: 1.35;
-      color: var(--ink-dim);
-    }
-
-    .termo-bar {
-      margin-top: 9px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.09);
-      overflow: hidden;
-    }
-
-    .termo-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #ff7a2f, #ffd056);
-      border-radius: 999px;
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      justify-content: center;
     }
 
     .act-btn {
       appearance: none;
       border: 0;
-      text-decoration: none;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 13px 12px;
-      border-radius: 16px;
+      padding: 12px 20px;
+      border-radius: 999px;
       background: var(--surface-strong);
       color: var(--ink);
       font-family: inherit;
@@ -446,27 +303,13 @@
     }
 
     .act-btn:active {
-      transform: scale(0.96);
-    }
-
-    .act-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #120c0e;
-      font-weight: 800;
+      transform: scale(0.95);
     }
 
     .ico {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       flex-shrink: 0;
-    }
-
-    .footer-note {
-      margin-top: auto;
-      text-align: center;
-      font-size: 11.5px;
-      color: var(--ink-dim);
-      padding-top: 4px;
     }
   </style>
 </head>
@@ -480,71 +323,41 @@
 
   <main class="wrap">
     <header class="topbar">
-      <div class="badge">
-        <span class="live-dot"></span>
-        <span>27 · 11:20 МСК</span>
-      </div>
       <button class="switch-btn" id="lightSwitch" type="button">
         <span class="lamp-dot"></span>
         <span id="lightLabel">свитч) тёплая</span>
       </button>
     </header>
 
-    <section class="hero">
-      <div class="art-stage" id="artStage" title="Тапни, чтобы сменить стикер">
+    <section class="center-stack">
+      <div class="art-stage" id="artStage">
         <img class="art-img" id="artImg" src="assets/s27.webp" alt="27" />
       </div>
-      <div class="art-hint" id="artHint">тапни по нам — ещё стикеры · тапни по фону — 27</div>
-    </section>
 
-    <section class="timer-card">
-      <div class="timer-title" id="timerTitle">до 27 ноября осталось</div>
-      <div class="clock-grid">
-        <div class="unit">
-          <div class="digits" id="dH">00</div>
-          <div class="unit-label" id="lH">часов</div>
+      <div class="timer-card">
+        <div class="clock-grid">
+          <div class="unit">
+            <div class="digits" id="dH">00</div>
+            <div class="unit-label" id="lH">часов</div>
+          </div>
+          <div class="colon">:</div>
+          <div class="unit">
+            <div class="digits" id="dM">00</div>
+            <div class="unit-label" id="lM">минут</div>
+          </div>
+          <div class="colon">:</div>
+          <div class="unit unit-sec" id="uS">
+            <div class="digits" id="dS">00</div>
+            <div class="unit-label" id="lS">секунд</div>
+          </div>
         </div>
-        <div class="colon">:</div>
-        <div class="unit">
-          <div class="digits" id="dM">00</div>
-          <div class="unit-label" id="lM">минут</div>
-        </div>
-        <div class="colon">:</div>
-        <div class="unit unit-sec" id="uS">
-          <div class="digits" id="dS">00</div>
-          <div class="unit-label" id="lS">секунд</div>
-        </div>
-      </div>
-
-      <div class="progress-wrap">
         <div class="progress-track">
           <div class="progress-fill" id="progFill"></div>
         </div>
-        <div class="progress-meta">
-          <span id="progLeft">26 ноя → 27 ноя 11:20</span>
-          <span id="progPct">0.00%</span>
-        </div>
       </div>
     </section>
 
-    <section class="termo-card" id="termoCard">
-      <div class="mug-box">
-        <img src="assets/termo_cold.webp" alt="Холодная кружка" />
-        <img class="mug-hot" id="mugHot" src="assets/termo_hot.webp" alt="ТермоДжек)" />
-      </div>
-      <div class="termo-info">
-        <div class="termo-head">
-          <span>ТермоДжек)</span>
-          <span class="termo-temp" id="termoTemp">24°C</span>
-        </div>
-        <div class="termo-sub" id="termoSub">Зажми и держи пальцем, чтобы нагреть кружку</div>
-        <div class="termo-bar">
-          <div class="termo-bar-fill" id="termoBar"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="actions">
+    <footer class="bottom-bar">
       <button class="act-btn" id="sirenBtn" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M7 18v-6a5 5 0 0 1 10 0v6"/>
@@ -553,12 +366,7 @@
         </svg>
         <span>Хорни Полис</span>
       </button>
-      <a class="act-btn act-primary" href="https://t.me/addstickers/icq27_sticker" target="_blank" rel="noopener">
-        <span>2∞ · Стикерпак</span>
-      </a>
-    </section>
-
-    <div class="footer-note" id="footerNote">а после 27 — только 2∞</div>
+    </footer>
   </main>
 
   <script>
@@ -575,27 +383,22 @@
     const START_MS  = 1795640400000; // 2026-11-26 00:00:00 MSK
 
     const stickers = [
-      { src: 'assets/s27.webp',       caption: '27 · тот самый первый' },
-      { src: 'assets/kiss.webp',      caption: 'жёсткий гиперфикс' },
-      { src: 'assets/inf2.webp',      caption: '2∞ · после 27' },
-      { src: 'assets/bunnies.webp',   caption: 'нереально грязные зайцы' },
-      { src: 'assets/predator.webp',  caption: 'моя хищница)' },
-      { src: 'assets/horny_boy.webp', caption: 'хорни полис · офицер на месте' },
-      { src: 'assets/horny_girl.webp',caption: 'хорни полис · поймали с поличным' },
-      { src: 'assets/dumaite.webp',   caption: 'думайте' },
-      { src: 'assets/ant.webp',       caption: 'муравью хуй приделать' },
+      'assets/s27.webp',
+      'assets/kiss.webp',
+      'assets/inf2.webp',
+      'assets/bunnies.webp',
+      'assets/horny_boy.webp',
+      'assets/horny_girl.webp',
     ];
     let curSticker = 0;
 
     const artStage = document.getElementById('artStage');
     const artImg = document.getElementById('artImg');
-    const artHint = document.getElementById('artHint');
 
     function setSticker(idx) {
       curSticker = ((idx % stickers.length) + stickers.length) % stickers.length;
       artStage.classList.add('pop');
-      artImg.src = stickers[curSticker].src;
-      artHint.textContent = stickers[curSticker].caption;
+      artImg.src = stickers[curSticker];
       setTimeout(() => artStage.classList.remove('pop'), 180);
     }
 
@@ -626,59 +429,13 @@
     let sirenTimer = null;
     sirenBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      setSticker(Math.random() < 0.5 ? 5 : 6);
+      setSticker(Math.random() < 0.5 ? 4 : 5);
       sirenOverlay.classList.add('active');
-      burst(window.innerWidth / 2, window.innerHeight * 0.25, 18);
+      burst(window.innerWidth / 2, window.innerHeight * 0.28, 18);
       if (navigator.vibrate) navigator.vibrate([25, 45, 25]);
       clearTimeout(sirenTimer);
       sirenTimer = setTimeout(() => sirenOverlay.classList.remove('active'), 2400);
     });
-
-    const termoCard = document.getElementById('termoCard');
-    const mugHot = document.getElementById('mugHot');
-    const termoTemp = document.getElementById('termoTemp');
-    const termoSub = document.getElementById('termoSub');
-    const termoBar = document.getElementById('termoBar');
-    let heating = false;
-    let heat = 0;
-    let celebratedTermo = false;
-
-    const startHeat = (e) => { e.stopPropagation(); heating = true; };
-    const stopHeat  = () => { heating = false; };
-    termoCard.addEventListener('pointerdown', startHeat);
-    window.addEventListener('pointerup', stopHeat);
-    window.addEventListener('pointercancel', stopHeat);
-
-    function tickTermo() {
-      if (heating) {
-        heat = Math.min(1, heat + 0.015);
-      } else if (heat > 0) {
-        heat = Math.max(0, heat - 0.005);
-        if (heat < 0.5) celebratedTermo = false;
-      }
-      const clipTop = Math.round((1 - heat) * 100);
-      mugHot.style.clipPath = `inset(${clipTop}% 0 0 0)`;
-      termoBar.style.width = `${Math.round(heat * 100)}%`;
-      const deg = Math.round(24 + heat * 68);
-      termoTemp.textContent = `${deg}°C`;
-      if (heat >= 0.99) {
-        termoSub.textContent = 'ТермоДжек проявился!)';
-        if (!celebratedTermo) {
-          celebratedTermo = true;
-          const r = termoCard.getBoundingClientRect();
-          burst(r.left + 50, r.top + 30, 14);
-          if (navigator.vibrate) navigator.vibrate(20);
-        }
-      } else if (heating) {
-        termoSub.textContent = 'Греем кружку… вот-вот появится';
-      } else if (heat > 0.05) {
-        termoSub.textContent = 'Остывает обратно в чёрную…';
-      } else {
-        termoSub.textContent = 'Зажми и держи пальцем, чтобы нагреть кружку';
-      }
-      requestAnimationFrame(tickTermo);
-    }
-    requestAnimationFrame(tickTermo);
 
     const canvas = document.getElementById('fxCanvas');
     const ctx = canvas.getContext('2d');
@@ -729,7 +486,7 @@
     }
 
     document.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('button, a, .art-stage, .termo-card')) return;
+      if (e.target.closest('button, .art-stage')) return;
       burst(e.clientX, e.clientY, 8);
     });
 
@@ -775,9 +532,6 @@
     const lS = document.getElementById('lS');
     const uS = document.getElementById('uS');
     const progFill = document.getElementById('progFill');
-    const progPct = document.getElementById('progPct');
-    const timerTitle = document.getElementById('timerTitle');
-    const footerNote = document.getElementById('footerNote');
 
     function decl(n, forms) {
       const m100 = Math.abs(n) % 100;
@@ -798,7 +552,6 @@
       const pct = Math.max(0, Math.min(100, ((now - START_MS) / totalSpan) * 100));
 
       progFill.style.width = `${pct.toFixed(3)}%`;
-      progPct.textContent = `${pct.toFixed(2)}%`;
 
       if (remMs <= 0) {
         dH.textContent = '00';
@@ -807,8 +560,6 @@
         lH.textContent = 'часов';
         lM.textContent = 'минут';
         lS.textContent = 'секунд';
-        timerTitle.textContent = '27 случилось · теперь 2∞';
-        footerNote.textContent = 'урааааа, мы дождались · 2∞';
         if (!arrived) {
           arrived = true;
           setSticker(2);
