@@ -50,43 +50,41 @@
       margin: 0;
       padding: 0;
       min-height: 100dvh;
-      background: var(--bg);
+      background: #09080c;
       color: var(--ink);
       font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       overflow: hidden;
-      transition: background 0.55s ease;
     }
 
-    .ambient {
+    .ambient, .ambient-red {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      contain: strict;
     }
 
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(88px);
-      transition: background 0.65s ease;
+    /* Pure radial gradients instead of filter:blur(88px) — zero GPU stall */
+    .ambient {
+      background:
+        radial-gradient(circle 280px at 50% 8%, rgba(245, 166, 35, 0.24) 0%, rgba(245, 166, 35, 0) 72%),
+        radial-gradient(circle 260px at 88% 92%, rgba(255, 107, 139, 0.18) 0%, rgba(255, 107, 139, 0) 72%),
+        #09080c;
     }
 
-    .orb-1 {
-      width: 360px;
-      height: 360px;
-      top: -90px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--glow-a);
+    .ambient-red {
+      background:
+        radial-gradient(circle 300px at 50% 8%, rgba(255, 26, 64, 0.36) 0%, rgba(255, 26, 64, 0) 72%),
+        radial-gradient(circle 280px at 88% 92%, rgba(255, 0, 51, 0.24) 0%, rgba(255, 0, 51, 0) 72%),
+        #0d0508;
+      opacity: 0;
+      will-change: opacity;
+      transition: opacity 0.32s ease;
     }
 
-    .orb-2 {
-      width: 320px;
-      height: 320px;
-      bottom: -110px;
-      right: -80px;
-      background: var(--glow-b);
+    body.red-room .ambient-red {
+      opacity: 1;
     }
 
     .siren-overlay {
@@ -95,18 +93,47 @@
       pointer-events: none;
       z-index: 40;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      will-change: opacity;
+      transition: opacity 0.18s ease;
+    }
+
+    .siren-overlay::before,
+    .siren-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      will-change: opacity;
+    }
+
+    .siren-overlay::before {
+      background: linear-gradient(90deg, rgba(255, 32, 64, 0.42) 0%, rgba(255, 32, 64, 0) 34%);
+    }
+
+    .siren-overlay::after {
+      background: linear-gradient(270deg, rgba(32, 130, 255, 0.42) 0%, rgba(32, 130, 255, 0) 34%);
     }
 
     .siren-overlay.active {
       opacity: 1;
-      animation: sirenFlash 0.36s steps(2, end) infinite;
     }
 
-    @keyframes sirenFlash {
-      0% { box-shadow: inset 24px 0 90px rgba(255, 32, 64, 0.65), inset -24px 0 90px rgba(32, 130, 255, 0.08); }
-      50% { box-shadow: inset 24px 0 90px rgba(255, 32, 64, 0.08), inset -24px 0 90px rgba(32, 130, 255, 0.65); }
-      100% { box-shadow: inset 24px 0 90px rgba(255, 32, 64, 0.65), inset -24px 0 90px rgba(32, 130, 255, 0.08); }
+    .siren-overlay.active::before {
+      animation: sirenA 0.36s steps(2, end) infinite;
+    }
+
+    .siren-overlay.active::after {
+      animation: sirenB 0.36s steps(2, end) infinite;
+    }
+
+    @keyframes sirenA {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.08; }
+    }
+
+    @keyframes sirenB {
+      0%, 100% { opacity: 0.08; }
+      50% { opacity: 1; }
     }
 
     #fxCanvas {
@@ -174,6 +201,7 @@
     }
 
     .art-stage {
+      position: relative;
       width: 224px;
       height: 224px;
       display: grid;
@@ -185,29 +213,30 @@
       width: 214px;
       height: 214px;
       object-fit: contain;
-      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
+      will-change: transform;
       animation: floaty 3.8s ease-in-out infinite;
-      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .art-stage.pop .art-img {
-      transform: scale(1.09) rotate(-3deg);
+      animation: none;
+      transform: scale(1.08) rotate(-2.5deg);
     }
 
     @keyframes floaty {
-      0%, 100% { transform: translateY(0px) rotate(-1deg); }
-      50% { transform: translateY(-8px) rotate(1.2deg); }
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+      50% { transform: translate3d(0, -8px, 0) rotate(1.2deg); }
     }
 
     .timer-card {
       width: 100%;
-      background: var(--surface);
+      background: rgba(20, 17, 26, 0.78);
       border-radius: 24px;
       padding: 18px 14px 16px;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.07);
-      transition: background 0.45s ease;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    body.red-room .timer-card {
+      background: rgba(34, 11, 18, 0.82);
     }
 
     .clock-grid {
@@ -271,11 +300,12 @@
 
     .progress-fill {
       height: 100%;
-      width: 0%;
+      width: 100%;
       border-radius: 999px;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 14px var(--accent);
-      transition: width 0.35s linear, background 0.4s ease;
+      transform-origin: left center;
+      transform: scaleX(0);
+      will-change: transform;
     }
 
     .bottom-bar {
@@ -313,10 +343,8 @@
   </style>
 </head>
 <body>
-  <div class="ambient">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-  </div>
+  <div class="ambient"></div>
+  <div class="ambient-red"></div>
   <div class="siren-overlay" id="sirenOverlay"></div>
   <canvas id="fxCanvas"></canvas>
 
@@ -442,9 +470,10 @@
     const canvas = document.getElementById('fxCanvas');
     const ctx = canvas.getContext('2d');
     const particles = [];
+    let rafId = 0;
 
     function resize() {
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const dpr = Math.min(1.5, window.devicePixelRatio || 1);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -467,6 +496,10 @@
       c.fillRect(-s * 0.7, -s * 0.16, s * 1.4, s * 0.32);
     }
 
+    function ensureFxLoop() {
+      if (!rafId) rafId = requestAnimationFrame(animParticles);
+    }
+
     function burst(x, y, count = 10) {
       const kinds = ['27', '27', 'heart', '2∞', 'star'];
       for (let i = 0; i < count; i++) {
@@ -477,7 +510,7 @@
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed - 1.2,
           life: 1,
-          decay: 0.015 + Math.random() * 0.015,
+          decay: 0.018 + Math.random() * 0.016,
           kind: kinds[Math.floor(Math.random() * kinds.length)],
           size: 13 + Math.random() * 10,
           rot: (Math.random() - 0.5) * 0.5,
@@ -485,6 +518,7 @@
           color: Math.random() < 0.5 ? '#ffd26a' : '#ff5f85',
         });
       }
+      ensureFxLoop();
     }
 
     document.addEventListener('pointerdown', (e) => {
@@ -522,9 +556,12 @@
         }
         ctx.restore();
       }
-      requestAnimationFrame(animParticles);
+      if (particles.length > 0) {
+        rafId = requestAnimationFrame(animParticles);
+      } else {
+        rafId = 0;
+      }
     }
-    requestAnimationFrame(animParticles);
 
     const dH = document.getElementById('dH');
     const dM = document.getElementById('dM');
@@ -551,9 +588,9 @@
       const now = Date.now();
       const remMs = TARGET_MS - now;
       const totalSpan = Math.max(1, TARGET_MS - START_MS);
-      const pct = Math.max(0, Math.min(100, ((now - START_MS) / totalSpan) * 100));
+      const pct = Math.max(0, Math.min(1, (now - START_MS) / totalSpan));
 
-      progFill.style.width = `${pct.toFixed(3)}%`;
+      progFill.style.transform = `scaleX(${pct.toFixed(5)})`;
 
       if (remMs <= 0) {
         dH.textContent = '00';
